@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import zipfile
 
 # 1. CONFIGURACIÓN DE LA PÁGINA WEB
 st.set_page_config(page_title="Tablero Competitivo", layout="wide", initial_sidebar_state="expanded")
@@ -13,14 +14,17 @@ def cargar_datos():
     df_viv = pd.read_excel('Base_Maestra_Vivienda_2026_VF4.xlsx', sheet_name='Base_Maestra')
     
     try:
-        # Lee directamente el CSV comprimido con el nombre exacto que está en GitHub
-        df_rc = pd.read_csv('RC_ALL_Cruce_Demografico(VF4)_2026.csv.zip', compression='zip', low_memory=False)
+        # Explorar el ZIP para ignorar archivos ocultos de Mac y leer solo el CSV
+        with zipfile.ZipFile('RC_ALL_Cruce_Demografico(VF4)_2026.csv.zip', 'r') as z:
+            archivo_csv = [f for f in z.namelist() if f.endswith('.csv') and '__MACOSX' not in f][0]
+            with z.open(archivo_csv) as f:
+                df_rc = pd.read_csv(f, low_memory=False)
                 
         if 'Institucion' in df_rc.columns:
             df_rc.rename(columns={'Institucion': 'Institución'}, inplace=True)
         df_master = pd.concat([df_viv, df_rc], ignore_index=True)
-    except FileNotFoundError:
-        st.warning("No se encontró el archivo de Consumo. Mostrando solo Vivienda.")
+    except Exception as e:
+        st.warning(f"No se pudo cargar el archivo de Consumo. Mostrando solo Vivienda. Detalle: {e}")
         df_master = df_viv
         
     df_master['Periodo'] = df_master['Periodo'].astype(str)
