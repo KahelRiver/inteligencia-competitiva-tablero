@@ -6,7 +6,7 @@ import zipfile
 
 # 1. CONFIGURACIÓN DE LA PÁGINA WEB
 st.set_page_config(page_title="Tablero Competitivo", layout="wide", initial_sidebar_state="expanded")
-st.title("Inteligencia Competitiva: Top 5 + Proximidad BanCoppel")
+st.title("🏆 Inteligencia Competitiva: Top 5 + Proximidad BanCoppel")
 
 # 2. CARGA DE DATOS
 @st.cache_data
@@ -170,11 +170,11 @@ if not df_agrupado.empty:
     # 6. CONSTRUCCIÓN DE LA GRÁFICA
     if not df_final.empty:
         colores_grupos = {
-            'G7': '#808080',
+            'G7': '#949494',
             'BanCoppel': '#0033A0',
-            'Resto del Mercado': '#90EE90',
-            'Similares Seleccionados': '#FFA500',
-            'Neobancos': '#9370DB'
+            'Resto del Mercado': '#856798',
+            'Similares Seleccionados': '#43A2CA',
+            'Neobancos': '#9EBA58'
         }
 
         formato_hover = '%{x:.2f}%' if metrica_seleccionada == "IMOR" else '%{x:,.0f}'
