@@ -6,7 +6,7 @@ import zipfile
 
 # 1. CONFIGURACIÓN DE LA PÁGINA WEB
 st.set_page_config(page_title="Tablero Competitivo", layout="wide", initial_sidebar_state="expanded")
-st.title("🏆 Inteligencia Competitiva: Top 5 + Proximidad BanCoppel")
+st.title("Inteligencia Competitiva: Top 5 + Proximidad BanCoppel")
 
 # 2. CARGA DE DATOS
 @st.cache_data
