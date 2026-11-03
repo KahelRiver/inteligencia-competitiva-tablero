@@ -205,7 +205,7 @@ if not df_agrupado.empty:
             hovertemplate='<b>%{y}</b><br>Ranking: #%{text}<br>Valor: ' + formato_hover + '<extra></extra>'
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
     else:
         st.warning("No hay datos de instituciones con saldo mayor a cero para este filtro.")
 else:
