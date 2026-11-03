@@ -21,7 +21,7 @@ def cargar_datos():
                 df_rc = pd.read_csv(f, low_memory=False)
                 
         if 'Institucion' in df_rc.columns:
-            df_rc.rename(columns={'Institucion': 'Institución'}, inplace=True)
+            df_rc = df_rc.rename(columns={'Institucion': 'Institución'})
         df_master = pd.concat([df_viv, df_rc], ignore_index=True)
     except Exception as e:
         st.warning(f"No se pudo cargar el archivo de Consumo. Mostrando solo Vivienda. Detalle: {e}")
